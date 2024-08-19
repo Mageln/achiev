@@ -1,0 +1,338 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  z-index: 1000; /* Выше всех остальных элементов */
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Чёрный полупрозрачный фон основного окна */
+
+  .modalContent {
+  position: fixed;    //position: relative;
+  z-index: 1;
+  max-width: 1115px;
+  max-height: 600px;
+  width: 85%; /* Ширина контента от родительского контейнера */
+  height: 85%; /* Высота контента от родительского контейнера */
+  padding: 28px 32px;
+  border-radius: 16px;
+  background: linear-gradient(160deg, rgba(40,1,79,1) 0%, rgba(84,20,148,1) 99%);
+ // box-sizing: border-box;
+//box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+//backdrop-filter: blur(1px);
+//transition: transform 0.3s ease-out;
+ 
+    .closeButton {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .modalTitle {
+      display: flex;
+ 
+      img {
+        margin-right: 20px;
+      }
+
+      .textTitle {
+      text-align: center;
+      color: white;
+      margin-bottom: 20px;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 8px;
+      }
+  }
+
+    .form {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 270px auto; /* Установите ширину левого столбца и автоматическую ширину правого */
+    grid-template-areas: 
+    "photo nameandrank"
+    "photo description"
+    "background image "
+    "button button";
+   }
+
+    .addAchievePhotoContainer{
+      margin-top: -30px;
+      width: 260px;
+      height: 324px;
+    grid-area: photo;
+    }
+    .iconAddAchieve{
+      width: 260px;
+      height: 324px;
+    }
+    .titleHeadIcon{
+      margin-top: 30px;
+      position: relative;
+      top: -318px;
+      text-align: center;
+      margin-left: 10px;
+      margin-right: 34px;
+      font-size: 18px;
+      max-width: 200px; 
+      word-wrap: break-word; /* Перенос слов на новую строку */
+      white-space: normal; /* Установка обычного пространства для переноса текста */
+    }
+    .descriptionHeadIcon{
+      position: relative;
+      font-size: 12px;
+      text-align: center;
+      top: -339px;
+      margin-left: 10px;
+      margin-right: 34px;
+      max-width: 200px; 
+      word-wrap: break-word; /* Перенос слов на новую строку */
+      overflow: hidden; /* Обрезка текста, выходящего за пределы блока */
+      text-overflow: ellipsis; /* Добавление троеточия в конце обрезанного текста */
+    }
+    .rankHeadIcon {
+      position: relative;
+      top: -355px;
+      text-align: center;
+      margin-right: 34px;
+      font-size: 16px;
+    }
+    .iconAddPhoto{
+      position: relative;
+      height: 140px;
+      top: -296px;
+      left: 40px;
+
+    }
+
+
+    .nameAndRank  {
+      grid-area: nameandrank;
+      display: flex;
+      margin-bottom: -10px;
+ 
+    .formGroupName{
+      flex-grow: 1;
+      label {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+    .formGroupRank{
+      flex-grow: 1;
+      label {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+    }
+
+    .formGroupDescription{
+      grid-area: description;
+      label {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+    .formGroupImage{
+      grid-area: image;
+      width: 400px;
+      label {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+    .formGroupBackground{
+      grid-area: background;
+      label {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+    .fileDownloadImage{
+      grid-area: fileDown;
+      display: none;
+    }
+    .labelFileDownload{
+      height: 48px;
+      border-radius: 10px;
+      //padding-left: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      background: rgba(209, 211, 212, 0.2);
+      border: 1px solid rgba(244, 244, 244, 0.0784313725);
+      color: #f4f4f4;
+      transition: background 0.3s ease;
+
+      .pFileDownload {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 20px;
+        text-align: center;
+        margin: 0;
+        margin-top: 14px;
+      }
+    
+    }
+    .labelFileDownload:hover{
+      background: rgba(101, 9, 240, 0.32);
+        border: 1px solid white;
+        color: white;
+        opacity: 0.8;
+    }
+    .formGroup {
+      margin-bottom: 20px;
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        width: 170px;
+        color: white;
+      }
+
+      .titleInput {
+        color: white;
+        width: 80%;
+        height: 36px;
+        border: none;
+        border-radius: 10px;
+        margin-top: 5px;
+        font-size: 1rem;
+        background-color: #8f17170f;
+      }
+      .rankInput {
+        color: white;
+        width: 70%;
+        height: 36px;
+        border: none;
+        border-radius: 10px;
+        margin-top: 5px;
+        font-size: 1rem;
+        background-color: #f4f4f40f;
+      }
+      .fileDownload {
+        width: 100%;
+        height: 36px;
+        border: none;
+        border-radius: 10px;
+        margin-top: 5px;
+        font-size: 1rem;
+        background-color: #f4f4f40f;
+      }
+      textarea,
+      select {
+        color: white;
+        width: 88%;
+        height: 100px;
+        border: none;
+        border-radius: 10px;
+        margin-top: 5px;
+        font-size: 1.1rem;
+        background-color: #f4f4f40f;
+      }
+
+      textarea {
+        resize: vertical;
+        max-height: 210px;
+      }
+
+      button,
+      input[type="file"] {
+        width: 180px;
+        // width: calc(50% - 10px);
+        height: 48px; /* Распределение кнопок на 50% ширины контейнера */
+        border-radius: 10px;
+        align-items: center;
+        cursor: pointer;
+        background: rgba(209, 211, 212, 0.2);
+        border: 1px solid #f4f4f414;
+        color: #f4f4f4;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background: rgba(101, 9, 240, 0.32);
+          border: 1px solid white;
+          color: white;
+          opacity: 0.8;
+        }
+      }
+
+      .avatarContainer {
+        display: flex;
+        margin-top: 10px;
+       
+        .chooseImageContainer {
+          flex-grow: 1;
+        }
+        .addImageContainer {
+          flex-grow: 1;
+        }
+      }
+    }
+
+    .buttonAddBackgroundContainer{
+      button{
+        width: 220px;
+        text-align: center;
+        margin-top: 5px;
+      }
+    }
+    .formActions {
+      display: flex;
+      justify-content: space-between;
+      grid-area: button;
+      
+      .cancelButton {
+        margin-top: 20px;
+        background: #6A11C3;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: white;
+        font-size: 1rem;
+        transition:
+          background-color 0.3s,
+          transform 0.3s;
+
+        &:hover {
+          opacity: 1;
+          transform: scale(1.05);
+        }
+      }
+
+      .submitButton {
+        margin-top: 20px;
+        background: #AB57FF;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: white;
+        font-size: 1rem;
+        transition:
+          background-color 0.3s,
+          transform 0.3s;
+
+        &:hover {
+          opacity: 1;
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}

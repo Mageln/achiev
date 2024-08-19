@@ -1,0 +1,179 @@
+@import "../../../styles/fonts";
+
+.modalOverlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.closeButton{
+  position: absolute;
+  right: 6px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+}
+
+.workersModal {
+  display: flex;
+  padding-left: 20px;
+  position: fixed;
+  z-index: 1;
+  left: 516px;
+  top: 158px;
+  width: 480px;
+  height: 489px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  box-shadow:
+    4px 4px 100px 0px rgba(0, 0, 0, 0.05),
+    -4px -4px 100px 0px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(60px);
+  background: linear-gradient(160deg, rgba(40,1,79,1) 0%, rgba(84,20,148,1) 99%);
+
+  transition: transform 0.3s ease-out;
+}
+.workersModal__content{
+  visibility: inherit;
+}
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+.title{
+      h3{
+        display: flex;
+        img{
+          margin-right: 20px;
+        }
+      }
+}
+.workersModal__form{
+  visibility: inherit;
+}
+.workersModal__upload {
+  button {
+    font-weight: bold;
+    margin-top: 51px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 440px;
+    height: 88px;
+    border: 1px solid white;
+    border-radius: 20px;
+    background: rgba(106, 17, 195, 0.12);
+    box-sizing: border-box;
+    font-size: 20px;
+    cursor: pointer;
+    img{
+      position: relative;
+      left: -10px;
+  
+    }
+  }
+  .linkShow{
+    border: none;
+    width: 440px;
+    height: 20px;
+    border-radius: 50px;
+    text-align: center;
+  }
+}
+
+.or {
+  text-align: center;
+}
+
+.btn_collaborator {
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 440px;
+  height: 88px;
+  box-sizing: border-box;
+  border: 1px solid white;
+  border-radius: 20px;
+  background: rgba(106, 17, 195, 0.12);
+  font-size: 20px;
+  cursor: pointer;
+  img {
+    position: relative;
+    left: -98px;
+  }
+}
+.workersModal__formCheckbox {
+  form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    margin-top: 20px;
+  }
+}
+
+.checkboxType {
+  width: 28px;
+  height: 28px;
+}
+
+.text__title {
+  color: white;
+  font-size: 16px;
+  margin: 0;
+}
+.text__description {
+  margin: 0;
+  opacity: 0.5;
+  font-size: 12px;
+}
+
+.btnGroups {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  top: 66px;
+}
+.btn__close {
+  width: 126px;
+height: 40px;
+font-size: 18px;
+font-weight: bold;
+  box-sizing: border-box;
+  border-radius: 16px;
+  background:#6A11C3;
+  border: none;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.btn__add{
+  width: 126px;
+  height: 40px;
+  font-size: 18px;
+  font-weight: bold;
+  box-sizing: border-box;
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  background: #AB57FF;
+    border: none;
+    margin-right: 12px;
+    cursor: pointer;
+}

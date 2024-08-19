@@ -1,0 +1,108 @@
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_COMMIT_MESSAGE =~ /^Update build version*/
+      when: never
+    - if: $CI_COMMIT_BRANCH
+
+stages:
+  - vars
+  - build
+  - deploy
+
+default:
+  artifacts:
+    when: always
+    paths:
+     - $CI_PROJECT_DIR/package.json
+    expire_in: 1 days
+  tags:
+    - docker
+
+variables:
+  IMAGE_NAME: "vit.ru.achiever"
+  USER_NAME: achiever
+
+update_version:
+  stage: vars
+  script:
+    - ansible --version || true
+    - export OLD_VERSION=`grep version package.json | grep -Po [0-9.]*`
+    - export NEW_VERSION=`echo $OLD_VERSION | awk '{split($NF,v,/[.]/); $NF=v[1]"."v[2]"."++v[3]}1'`
+    - 'sed -i "s/\"version\": \"$OLD_VERSION\"/\"version\": \"$NEW_VERSION\"/g" package.json'
+    - git clone --branch $CI_COMMIT_BRANCH $CI_REPOSITORY_URL git_project
+    - cp package.json git_project/package.json
+    - cd git_project && git add . && git commit -m "Update build version" 
+    - git push https://repository_user_token:$repository_user_token@git.infra.cloveri.com/cloveri.start/achiever/front.git/
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ "dev|master"'
+
+build_test_image:
+  stage: build
+  script:
+    - docker login https://docker.infra.cloveri.com -u $CI_REGISTRY_USER --password-stdin <<<$CI_JOB_TOKEN
+    - docker build -t docker.infra.cloveri.com/$CI_PROJECT_PATH/$IMAGE_NAME:t`grep version package.json | grep -Po [0-9.]*` .
+    - docker push docker.infra.cloveri.com/$CI_PROJECT_PATH/$IMAGE_NAME:t`grep version package.json | grep -Po [0-9.]*`
+  after_script:
+    - docker rmi docker.infra.cloveri.com/$CI_PROJECT_PATH/$IMAGE_NAME:t`grep version package.json | grep -Po [0-9.]*`
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev"'
+
+build_prod_image:
+  stage: build
+  script:
+    - docker login https://docker.infra.cloveri.com -u $CI_REGISTRY_USER --password-stdin <<<$CI_JOB_TOKEN
+    - docker build -t docker.infra.cloveri.com/$CI_PROJECT_PATH/$IMAGE_NAME:latest .
+    - docker image tag docker.infra.cloveri.com/$CI_PROJECT_PATH/$IMAGE_NAME:latest docker.infra.cloveri.com/$CI_PROJECT_PATH/$IMAGE_NAME:`grep version package.json | grep -Po [0-9.]*' package.json`
+    - docker push docker.infra.cloveri.com/$CI_PROJECT_PATH/$IMAGE_NAME:latest
+    - docker push docker.infra.cloveri.com/$CI_PROJECT_PATH/$IMAGE_NAME:`grep version package.json | grep -Po [0-9.]*' package.json` .
+  after_script:
+    - docker rmi docker.infra.cloveri.com/$CI_PROJECT_PATH/$IMAGE_NAME:latest
+    - docker rmi docker.infra.cloveri.com/$CI_PROJECT_PATH/$IMAGE_NAME:`grep version package.json | grep -Po [0-9.]*` .
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+deploy_in_test:
+  stage: deploy
+  # image: willhallonline/ansible:2.16.4-bookworm 
+  image: public.ecr.aws/ubuntu/redis:6.0-22.04_edge
+  variables:
+    PATH_SSH_KEY: ssh_ansible
+    ANSIBLE_FORCE_COLOR: 'true'
+    ANSIBLE_HOST_KEY_CHECKING: 'False'
+    ANSIBLE_CALLBACK_WHITELIST: 'profile_tasks'
+    ANSIBLE_GATHER_TIMEOUT: 60
+    ANSIBLE_TIMEOUT: 60
+    ANSIBLE_PERSISTENT_CONNECT_TIMEOUT: 120
+    ANSIBLE_PERSISTENT_CONNECT_RETRY_TIMEOUT: 30
+    ANSIBLE_PERSISTENT_COMMAND_TIMEOUT: 30
+    extraVars: >
+      CI_PROJECT_TITLE=$CI_PROJECT_TITLE
+      CI_COMMIT_BRANCH=$CI_COMMIT_BRANCH
+      CI_COMMIT_MESSAGE="$CI_COMMIT_MESSAGE"
+      CI_JOB_URL=$CI_JOB_URL
+      cli_secret=$CI_JOB_TOKEN
+      cli_user_name=$CI_REGISTRY_USER
+      container_name=$IMAGE_NAME
+      GITLAB_USER_LOGIN=$GITLAB_USER_LOGIN
+      owner_user=$USER_NAME
+      POS_TOK=$POS_TOK
+      PRE_TOK=$PRE_TOK
+      project_name=achiever_front
+      image_name='docker.infra.cloveri.com/$CI_PROJECT_PATH/$IMAGE_NAME'
+  script:
+    - apt-get update && apt-get install -y ansible
+    - ansible --version
+    - echo "${SSH_PRIVATE_KEY}" > $PATH_SSH_KEY && chmod 600 $PATH_SSH_KEY
+    - export ANSIBLE_HOST_KEY_CHECKING=False
+    - ansible --inventory-file=hosts test_servers --private-key=$PATH_SSH_KEY -m ping
+    - ansible-playbook --inventory-file=hosts --limit test_servers playbook.yaml ${extraVars:+--extra-vars "$extraVars"} --syntax-check
+    - ansible-playbook --private-key $PATH_SSH_KEY --user $USER_NAME --inventory hosts playbook.yaml ${extraVars:+--extra-vars "$extraVars"}
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev"'
+  tags: [achiever-dind]
+
+
+

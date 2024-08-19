@@ -1,0 +1,229 @@
+button {
+  color: white;
+}
+.banWorkerButton {
+  visibility: inherit;
+}
+.ChangeWorkerButton {
+  visibility: inherit;
+}
+
+.searchInputContainer {
+  border: none;
+  .searchInput {
+    font-size: 16px;
+    color: white;
+    padding-left: 40px;
+    max-width: 554px;
+    height: 40px;
+    border: none;
+    background: url("@/assets/search-icon.svg") no-repeat, none;
+    background-position: 6px 9px;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(244, 244, 244, 0.04);
+    &:hover {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    &.active {
+      background-color: #f4f4f40a;
+      border: none;
+      opacity: 1;
+      transform: scale(0.95);
+    }
+  }
+}
+
+.ChangeWorkerInformationButton {
+  display: flex;
+  align-items: center;
+  padding: 8px 8px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #fff;
+background: none;
+ border: none;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-right: 16px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+  img {
+    margin-right: 8px;
+  }
+  &:hover {
+    background-color: #f4f4f40a;
+    transform: scale(1.05);
+
+  }
+  &.active {
+    background-color: #f4f4f40a;
+    color: #fff;
+    transform: scale(0.95);
+  }
+}
+.deleteBanWorkerButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 26px;
+  width: 175px;
+  height: 60px;
+  padding: 8px 12px;
+  border-radius: 16px;
+  text-decoration: none;
+  border: none;
+  background:#6A11C3 ;
+  color: #F4F4F4;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-right: 16px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+  img {
+    margin-right: 8px;
+  }
+  &:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  &.active {
+    background-color: #f4f4f40a;
+    color: #fff;
+    opacity: 1;
+    transform: scale(0.95);
+  }
+}
+.linkWorkerButton {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #fff;
+  opacity: 0.6;
+  border: 0.5px solid #f4f4f410;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-right: 16px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+  img {
+    margin-right: 8px;
+  }
+  &:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  &.active {
+    background-color: #f4f4f40a;
+    color: #fff;
+    opacity: 1;
+    transform: scale(0.95);
+  }
+}
+
+
+.giveAchieveButton {   
+  display: flex;
+  align-items: center;
+  width: 151px;
+  height: 60px;
+  padding: 8px 12px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #fff;
+  border: none;
+  background: #6A11C3;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  margin-right: 16px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+  img {
+    margin-right: 8px;
+  }
+  &:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  &.active {
+    background-color: #f4f4f40a;
+    color: #fff;
+    opacity: 1;
+    transform: scale(0.95);
+  }
+}
+
+.allAchieveButton {   
+  display: flex;
+  align-items: center;
+  padding: 8px 8px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #fff;
+  opacity: 0.6;
+  border: 0.5px solid #f4f4f410;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-right: 16px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+&:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  &.active {
+    background-color: #f4f4f40a;
+    color: #fff;
+    opacity: 1;
+    transform: scale(0.95);
+  }
+}
+
+.addWorkButton{
+  padding: 12px 18px;
+  border-radius: 16px;
+  text-decoration: none;
+  background: #6a11c352;
+  border: 1px solid #762dbf52;
+  color: white;
+  opacity: 0.8;
+  font-size: 16px;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+
+  &:hover {
+    background: linear-gradient(90deg, #6a50ea, #8950ea);
+    transform: scale(1.05);
+
+    &:active {
+      background: linear-gradient(90deg, #5938d7, #7638d7);
+      transform: scale(0.95);
+    }
+  }
+}
